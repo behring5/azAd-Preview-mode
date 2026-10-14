@@ -21,8 +21,8 @@ const files = ['src/azPreview.js', 'dist/azPreview.min.js', 'dist/azPreview.css'
 
 files.forEach((filePath) => {
 	const banner = `/*!\n * ${title} v${version}\n * ${repo}\n * ${author}\n */\n`;
-	let content = fs.readFileSync(filePath, 'utf8');
-	while (content.startsWith('/*!')) content = content.replace(/^\/\*![\s\S]*?\*\/\n/, '');
+	// strip existing banners (LF or CRLF line endings)
+	const content = fs.readFileSync(filePath, 'utf8').replace(/^(\/\*![\s\S]*?\*\/\r?\n?)+/, '');
 	fs.writeFileSync(filePath, banner + content);
 	console.log(`✔ banner → ${filePath}`);
 });
