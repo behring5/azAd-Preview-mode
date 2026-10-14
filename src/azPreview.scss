@@ -1,0 +1,346 @@
+:root {
+	--contentColor: #ededed;
+	--phoneRadius: 38px;
+	--phoneColor: #656565;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	user-select: none; /* in digital ads user usually dont select any elements */
+}
+
+html,
+body {
+	width: 100%;
+	height: 100vh;
+	position: relative;
+	font-family:
+		system-ui,
+		-apple-system,
+		sans-serif;
+}
+
+/////////////////////////////
+// Shared article placeholder (used in both mobile + desktop dummy websites)
+
+.article {
+	--contentLineHeight: 12px;
+	width: 100%;
+	display: flex;
+	gap: var(--contentLineHeight);
+
+	div {
+		border-radius: 8px;
+		background-color: var(--contentColor);
+	}
+	& > div:first-child {
+		max-width: 33%;
+		aspect-ratio: 4 / 3;
+		width: 270px;
+	}
+	.lines {
+		background-color: unset;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		gap: var(--contentLineHeight);
+		padding-bottom: 16px;
+		div {
+			min-height: calc(var(--contentLineHeight) * 1);
+			flex-grow: 1;
+		}
+	}
+}
+
+/////////////////////////////
+// PHONE PREVIEW — outer page with phone frame
+
+body.dummyPhone {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	background: #252525;
+
+	#dummyPhone {
+		width: 370px;
+		height: 774px;
+		position: relative;
+		border: 8px solid var(--phoneColor);
+		border-radius: var(--phoneRadius);
+		overflow: hidden;
+		background-color: var(--phoneColor);
+		box-shadow: 0em 0.5em 3.4em 0.5em rgba(0, 0, 0, 0.75);
+
+		#phoneInner {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			padding-bottom: 45px;
+		}
+
+		.browserbars {
+			width: 100%;
+			padding: 0 10px;
+			box-shadow: 0 -1px 0 0 #ececec;
+		}
+
+		#browserTop {
+			padding: 10px 0;
+		}
+
+		#statusbar {
+			width: 95%;
+			margin: auto auto 7px auto;
+			padding: 0 5px;
+			display: flex;
+			align-content: center;
+			justify-content: space-between;
+			font-size: 12px;
+			font-weight: 500;
+			color: #fff;
+			opacity: 0.5;
+
+			svg {
+				width: 20px;
+				height: 20px;
+				fill: #fff;
+			}
+		}
+
+		#adressbar {
+			width: 100%;
+			margin: auto;
+			height: 5px;
+			background-color: var(--contentColor);
+			border-radius: 5px;
+			opacity: 0.5;
+		}
+	}
+
+	#dummyPhone.showbars {
+		#adressbar {
+			height: 30px;
+		}
+		#browserBottom {
+			height: 45px;
+		}
+	}
+
+	#dummyWebsite {
+		width: 100%;
+		height: 100%;
+		border: none;
+		display: block;
+		border-radius: 5px;
+	}
+}
+
+/////////////////////////////
+// MOBILE WEBSITE BODY — content of the iframe inside phone frame (also used on real mobile)
+
+body.mobileWebsiteBody {
+	background: #fff;
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 15px;
+	padding: 50px 10px 0 10px;
+
+	#mobileHeader {
+		width: 100%;
+		position: fixed;
+		top: 0;
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		box-shadow: inset 0 -1px 0 0px rgba(255, 255, 255, 0.5);
+		background: var(--contentColor);
+
+		.brand-logo {
+			width: 20px;
+			height: 20px;
+			border-radius: 100%;
+			background: #fff;
+		}
+		.mobile-menu-button {
+			width: 25px;
+			margin: auto;
+			margin-right: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			div {
+				height: 3px;
+				background: #fff;
+			}
+		}
+	}
+
+	#adContainer {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#adContainer #close {
+		position: fixed;
+		top: 10px;
+		right: 10px;
+		z-index: 5;
+		width: 27px;
+		height: 27px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 100%;
+		background-color: #000;
+		cursor: pointer;
+		box-shadow:
+			inset 0 0 0 2px rgba(255, 255, 255, 0.85),
+			0 3px 10px 0 rgba(0, 0, 0, 0.25);
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			width: 16px;
+			height: 2px;
+			background-color: #fff;
+			transform-origin: center center;
+		}
+		&::before {
+			transform: rotate(-45deg);
+		}
+		&::after {
+			transform: rotate(45deg);
+		}
+	}
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+/////////////////////////////
+// DESKTOP PREVIEW — outer page (no frame, full viewport)
+
+body.previewDesktop {
+	display: block;
+
+	#dummyWebsite {
+		width: 100%;
+		height: 100vh;
+		border: none;
+		display: block;
+	}
+}
+
+/////////////////////////////
+// DESKTOP WEBSITE BODY — content of the iframe for desktop view
+
+body.desktopWebsiteBody {
+	background: #fff;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+
+	#desktopHeader {
+		width: 100%;
+		position: fixed;
+		top: 0;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		padding: 14px 40px;
+		background: var(--contentColor);
+		box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.08);
+		gap: 40px;
+
+		.brand-logo {
+			width: 28px;
+			height: 28px;
+			border-radius: 100%;
+			background: #fff;
+			flex-shrink: 0;
+		}
+		.desktop-nav {
+			display: flex;
+			gap: 20px;
+			div {
+				width: 60px;
+				height: 10px;
+				border-radius: 3px;
+				background: #fff;
+				opacity: 0.6;
+			}
+		}
+	}
+
+	#desktopLayout {
+		display: flex;
+		flex-direction: row;
+		gap: 40px;
+		padding: 90px 40px 40px 40px;
+		max-width: 1200px;
+		width: 100%;
+		margin: 0 auto;
+
+		&.top-placement {
+			flex-direction: column;
+
+			#adContainer {
+				order: -1;
+				position: static;
+				width: 100%;
+				align-items: center;
+				flex-basis: auto;
+			}
+		}
+	}
+
+	#desktopArticle {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 35px;
+		.article {
+			gap: 20px;
+		}
+	}
+
+	#adContainer {
+		flex: 0 0 340px;
+		position: sticky;
+		top: 90px;
+		align-self: start;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+#adIframe {
+	border: none;
+	background-color: #fff;
+}
+
+#adIframe.int {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	inset: 0;
+	z-index: 5;
+	margin: 0;
+}

@@ -1,0 +1,28 @@
+{
+	"name": "azad-preview-mode",
+	"version": "1.0.0",
+	"description": "Device preview (phone / desktop dummy website) for azAd HTML ads, served via jsDelivr.",
+	"private": true,
+	"author": "Christoph Eckert <christoph@behring5.de>",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/behring5/azAd-Preview-mode"
+	},
+	"keywords": [
+		"html-ad",
+		"display-ad",
+		"ad-preview"
+	],
+	"scripts": {
+		"build:css": "sass --no-source-map src/azPreview.scss dist/azPreview.css && sass --no-source-map --style=compressed src/azPreview.scss dist/azPreview.min.css",
+		"build:js": "terser src/azPreview.js -o dist/azPreview.min.js",
+		"build:banner": "node scripts/banner.js",
+		"build": "npm run build:css && npm run build:js && npm run build:banner",
+		"watch": "sass --watch src/azPreview.scss dist/azPreview.min.css --style=compressed --no-source-map"
+	},
+	"devDependencies": {
+		"sass": "^1.0.0",
+		"terser": "^5.0.0"
+	}
+}
